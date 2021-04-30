@@ -20,11 +20,11 @@ class SearchBoxDelegate extends SliverPersistentHeaderDelegate {
             color: Colors.blueGrey,
             child: InkWell(
                 child: Container(
-              width: MediaQuery.of(context).size.width - 40.0,
-              height: 50.0,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(5.0),
+                    width: MediaQuery.of(context).size.width - 40.0,
+                  height: 50.0,
+                  decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(5.0),
               ),
               child: Row(
                 children: <Widget>[

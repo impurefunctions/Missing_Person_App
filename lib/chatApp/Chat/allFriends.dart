@@ -47,9 +47,9 @@ class _MyChatsState extends State<MyChats> {
 
     firebaseMessaging.getToken().then((token) {
       print('token: $token');
-      AbsaCompetitionApp.firestore
+      Tswana_Search.firestore
           .collection(ChatApp.collectionAdmin)
-          .document(AbsaCompetitionApp.sharedPreferences.getString(ChatApp.userUID))
+          .document(Tswana_Search.sharedPreferences.getString(ChatApp.userUID))
           .updateData({ChatApp.userToken: token});
     }).catchError((err) {
       Fluttertoast.showToast(msg: err.message.toString());
@@ -108,10 +108,10 @@ class _MyChatsState extends State<MyChats> {
 
   Widget _buildBody(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: AbsaCompetitionApp.firestore
-          .collection(AbsaCompetitionApp.collectionUser)
-          .document(AbsaCompetitionApp.sharedPreferences.getString(ChatApp.userUID))
-          .collection(AbsaCompetitionApp.userFriendList)
+      stream: Tswana_Search.firestore
+          .collection(Tswana_Search.collectionUser)
+          .document(Tswana_Search.sharedPreferences.getString(ChatApp.userUID))
+          .collection(Tswana_Search.userFriendList)
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
@@ -134,7 +134,7 @@ class _MyChatsState extends State<MyChats> {
             builder: (builder) => Chat(
                   peerId: data.documentID,
                   userID:
-                      AbsaCompetitionApp.sharedPreferences.getString(ChatApp.userUID),
+                  Tswana_Search.sharedPreferences.getString(ChatApp.userUID),
                 ));
         Navigator.push(context, route);
       },
@@ -154,7 +154,7 @@ class _MyChatsState extends State<MyChats> {
                       CircleAvatar(
                         //child: Image.network(data[ChatApp.userPhotoUrl]),
                         backgroundImage:
-                            NetworkImage(data.data[AbsaCompetitionApp.userAvatarUrl]),
+                            NetworkImage(data.data[Tswana_Search.userAvatarUrl]),
                       ),
                     ],
                   ),

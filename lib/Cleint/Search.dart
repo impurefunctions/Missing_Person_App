@@ -13,9 +13,10 @@ class SearchService {
 
   searchByName(String searchField) {
     print(searchField);
+
     return Firestore.instance
-        .collection('books')
-        .where('title',
+        .collection('Report_Missing')
+        .where('name',
         isGreaterThanOrEqualTo: searchField)
         .getDocuments();
   }
@@ -39,8 +40,8 @@ class _SearchProductState extends State<SearchProduct> {
            query.substring(0, 1).toUpperCase();
      }
 
-     documnetList =  Firestore.instance.collection(AbsaApp.collectionAllBook).where('title',isGreaterThanOrEqualTo: capitalizedValue).getDocuments();
-   // print('documents: ${(await documnetList).documents[0].data['title']}');
+     documnetList =  Firestore.instance.collection(AbsaApp.collectionAllBook).where('name',isGreaterThanOrEqualTo: capitalizedValue).getDocuments();
+   print('documents: ${(await documnetList).documents[0].data['name']}');
     setState(() {
 
     });
@@ -50,7 +51,7 @@ class _SearchProductState extends State<SearchProduct> {
          alignment: Alignment.center,
          width: MediaQuery.of(context).size.width,
          height: 80.0,
-         color: Colors.blueGrey,
+         color: Colors.blue,
          child: Container(
            width: MediaQuery.of(context).size.width - 40.0,
            height: 50.0,
@@ -64,7 +65,7 @@ class _SearchProductState extends State<SearchProduct> {
                  padding: const EdgeInsets.only(left: 8.0),
                  child: Icon(
                    Icons.search,
-                   color: Colors.blueGrey,
+                   color: Colors.blue,
                  ),
                ),
                Flexible(
@@ -119,7 +120,7 @@ Widget buildResultCard(data) {
       elevation: 2.0,
       child: Container(
           child: Center(
-              child: Text(data['title'],
+              child: Text(data['name'],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.black,

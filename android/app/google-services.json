@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "64039306926",
-    "project_id": "stockabsa",
-    "storage_bucket": "stockabsa.appspot.com"
+    "project_number": "284146280350",
+    "project_id": "search-69318",
+    "storage_bucket": "search-69318.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:64039306926:android:3330fcea9acc47d35c4f3f",
+        "mobilesdk_app_id": "1:284146280350:android:dd2820008f10383217988f",
         "android_client_info": {
           "package_name": "com.example.ecommerce"
         }
       },
       "oauth_client": [
         {
-          "client_id": "64039306926-0d7q262i8bkttb920tdp7rmnhg7h9opj.apps.googleusercontent.com",
+          "client_id": "284146280350-vvd8cidb9optoarem6rq3jd5cabd5597.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDXNHY5am-R7CEJlCbd4laxc6JDg8ClOvo"
+          "current_key": "AIzaSyBF1IfeoQbc6VhXrGg9nxhBaOWSoOVjhWg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "64039306926-0d7q262i8bkttb920tdp7rmnhg7h9opj.apps.googleusercontent.com",
+              "client_id": "284146280350-vvd8cidb9optoarem6rq3jd5cabd5597.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

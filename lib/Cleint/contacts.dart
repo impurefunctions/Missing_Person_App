@@ -101,7 +101,7 @@ class Contact extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Text("OR Email Us at :"),
-                  Text("okgethengb@gmail.com",
+                  Text("ireneseele@gmail.com",
                       style: TextStyle(color: Colors.blueGrey))
                 ],
               ),

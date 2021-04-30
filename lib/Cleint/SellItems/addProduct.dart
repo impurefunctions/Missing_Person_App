@@ -22,16 +22,19 @@ class _SellProductState extends State<SellProduct> {
   List<String> imageUrls = <String>[];
   String _error = 'No Error Dectected';
   bool isUploading = false;
-  final title = TextEditingController();
+  final name = TextEditingController();
   final description = TextEditingController();
-  final location = TextEditingController();
-  final price = TextEditingController();
+  //final last_seen = TextEditingController();
+  final age = TextEditingController();
+  DateTime selectedDate;
 
   final formKey = GlobalKey<FormState>();
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   done() {
-    if (images.length < 3 || images.length > 8) {
+    if (images.length ==0) {
+//imlength > 8)ages.length < 3 || images.
+
       showDialog(
           context: context,
           builder: (_) {
@@ -48,17 +51,19 @@ class _SellProductState extends State<SellProduct> {
                     height: 30,
                     child: Center(
                         child: Text(
-                      "Ok",
-                      style: TextStyle(color: Colors.white),
-                    )),
+                          "Ok",
+                          style: TextStyle(color: Colors.white),
+                        )),
                   ),
                 )
               ],
             );
           });
     } else {
+
+      uploadImages();
       SnackBar snackbar =
-          SnackBar(content: Text('Please wait, we are uploading'));
+      SnackBar(content: Text('Please wait, we are uploading'));
       scaffoldKey.currentState.showSnackBar(snackbar);
       showDialog(
           context: context,
@@ -68,7 +73,7 @@ class _SellProductState extends State<SellProduct> {
               message: 'Please wait,loading data',
             );
           });
-      uploadImages();
+
     }
   }
 
@@ -83,17 +88,18 @@ class _SellProductState extends State<SellProduct> {
           print('Images Upload done 2');
           String documnetID = DateTime.now().millisecondsSinceEpoch.toString();
           ProductModel model = ProductModel(
-              location: location.text,
-              title: title.text,
+              last_seen: selectedDate,
+              name: name.text,
               description: description.text,
-              price: price.text,
-              uid: AbsaCompetitionApp.sharedPreferences
-                  .getString(AbsaCompetitionApp.userUID),
+              age: age.text,
+              found: "false",
+              uid: Tswana_Search.sharedPreferences
+                  .getString(Tswana_Search.userUID),
               urls: imageUrls);
 
           // TODO CHnge collection name
 
-          AbsaCompetitionApp.firestore
+          Tswana_Search.firestore
               .collection(AbsaApp.collectionAllBook)
               .document(documnetID)
               .setData(model.toJson())
@@ -101,17 +107,17 @@ class _SellProductState extends State<SellProduct> {
             print('Upload Done');
             Navigator.pop(context);
             SnackBar snackbar =
-                SnackBar(content: Text('Uploaded Successfully'));
+            SnackBar(content: Text('Uploaded Successfully'));
 
             scaffoldKey.currentState.showSnackBar(snackbar);
 
             setState(() {
               images = [];
               imageUrls = [];
-              title.clear();
+              name.clear();
               description.clear();
-              location.clear();
-              price.clear();
+
+              age.clear();
             });
           }).catchError((e) {
             Navigator.pop(context);
@@ -171,7 +177,7 @@ class _SellProductState extends State<SellProduct> {
     String fileName = DateTime.now().millisecondsSinceEpoch.toString();
     StorageReference reference = FirebaseStorage.instance.ref().child(fileName);
     StorageUploadTask uploadTask =
-        reference.putData((await imageFile.getByteData()).buffer.asUint8List());
+    reference.putData((await imageFile.getByteData()).buffer.asUint8List());
     StorageTaskSnapshot storageTaskSnapshot = await uploadTask.onComplete;
     print('DownloadURL');
     print(storageTaskSnapshot.ref.getDownloadURL());
@@ -247,7 +253,7 @@ class _SellProductState extends State<SellProduct> {
             }
           },
           label: Text('Done'),
-          backgroundColor: Colors.deepPurple,
+          backgroundColor: Colors.blue,
           icon: Icon(Icons.check),
         ),
         body: GestureDetector(
@@ -260,7 +266,7 @@ class _SellProductState extends State<SellProduct> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      'Add Product',
+                      'Add Missing Person',
                       style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -276,21 +282,36 @@ class _SellProductState extends State<SellProduct> {
                     child: Column(
                       children: <Widget>[
                         MyTextField(
-                          hint: 'Title',
-                          controller: title,
+                          hint: 'Name',
+                          controller: name,
                         ),
                         MyTextField(
                           hint: 'Description',
                           controller: description,
                         ),
                         MyTextField(
-                          hint: 'price',
-                          controller: price,
+                          hint: 'Age',
+                          controller: age,
                         ),
-                        MyTextField(
-                          hint: 'location',
-                          controller: location,
-                        ),
+
+                          FlatButton(
+                            child: Text("Date: " + selectedDate.toString()),
+                            onPressed: () async{
+                              DateTime date = await showDatePicker(
+                                  context: context,
+                                  initialDate: DateTime.now(),
+                                  firstDate: DateTime(2010),
+                                  lastDate: DateTime.now().add(Duration(days: 1)));
+
+                              if (date != null){
+                                setState((){
+                                  selectedDate = date;
+                                });
+                              }
+                            },
+                          )
+
+
                       ],
                     )),
                 Align(
@@ -304,9 +325,9 @@ class _SellProductState extends State<SellProduct> {
                       onTap: loadAssets,
                       child: Center(
                           child: Text(
-                        "Pick images",
-                        style: TextStyle(color: Colors.white),
-                      )),
+                            "Add Picture",
+                            style: TextStyle(color: Colors.white),
+                          )),
                     ),
                   ),
                 ),
@@ -333,9 +354,9 @@ class MyTextField extends StatelessWidget {
 
   const MyTextField(
       {Key key,
-      this.hint,
-      this.controller,
-      this.textInputType = TextInputType.text})
+        this.hint,
+        this.controller,
+        this.textInputType = TextInputType.text})
       : super(key: key);
 
   @override

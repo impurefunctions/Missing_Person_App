@@ -56,8 +56,8 @@ class _MyProductsState extends State<MyProducts> {
                     .collection(AbsaApp.collectionAllBook)
                     .where(
                       'uid',
-                      isEqualTo: AbsaCompetitionApp.sharedPreferences
-                          .getString(AbsaCompetitionApp.userUID),
+                      isEqualTo: Tswana_Search.sharedPreferences
+                          .getString(Tswana_Search.userUID),
                     )
                     .snapshots(),
                 builder: (context, snapshot) {
@@ -87,7 +87,7 @@ class _MyProductsState extends State<MyProducts> {
   deleteProduct(String documentID) {
     SnackBar snackBar = SnackBar(content: Text('Please wait, deleting..'));
     scaffoldKey.currentState.showSnackBar(snackBar);
-    AbsaCompetitionApp.firestore
+    Tswana_Search.firestore
         .collection(AbsaApp.collectionAllBook)
         .document(documentID)
         .delete()
@@ -98,5 +98,16 @@ class _MyProductsState extends State<MyProducts> {
       SnackBar snackBar = SnackBar(content: Text('Some Error Occurred'));
       scaffoldKey.currentState.showSnackBar(snackBar);
     });
+  }
+
+  personfound (String documentID)
+  {
+    Tswana_Search.firestore
+        .collection(AbsaApp.collectionAllBook)
+        .document(documentID).updateData({
+      "found": "true",
+
+    });
+
   }
 }

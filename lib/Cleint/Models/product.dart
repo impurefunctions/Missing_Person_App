@@ -1,36 +1,43 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ProductModel {
-  String title;
-  String location;
+  String name;
+  DateTime last_seen;
   String description;
   String uid;
   List<String> urls;
-  String price;
+  String found;
+  String age;
 
   ProductModel(
-      {this.title,
-        this.location,
+      {this.name,
+        this.last_seen,
         this.description,
         this.uid,
+        this.found,
         this.urls,
-        this.price});
+        this.age});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
-    location = json['location'];
+    name = json['name'];
+    final Timestamp timestamp = json['last_seen'] as Timestamp;
+    last_seen = timestamp.toDate();
     description = json['description'];
     uid = json['uid'];
     urls = json['urls'].cast<String>();
-    price = json['price'];
+    age = json['age'];
+    found = json['found'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
-    data['location'] = this.location;
+    data['name'] = this.name;
+    data['last_seen'] = this.last_seen;
     data['description'] = this.description;
     data['uid'] = this.uid;
     data['urls'] = this.urls;
-    data['price'] = this.price;
+    data['age'] = this.age;
+    data['found'] = this.found;
     return data;
   }
 }

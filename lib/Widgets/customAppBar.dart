@@ -13,7 +13,7 @@ class MyAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       elevation: 0.0,
       centerTitle: true,
-      title: Text("STOCKiT"),
+      title: Text("SEARCH_TSWANA"),
       bottom: bottom,
       leading: leading,
       backgroundColor: Colors.blueGrey,

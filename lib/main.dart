@@ -14,9 +14,9 @@ import 'notifiers/totalMoney.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  AbsaCompetitionApp.sharedPreferences = await SharedPreferences.getInstance();
-  AbsaCompetitionApp.auth = FirebaseAuth.instance;
-  AbsaCompetitionApp.firestore = Firestore.instance;
+  Tswana_Search.sharedPreferences = await SharedPreferences.getInstance();
+  Tswana_Search.auth = FirebaseAuth.instance;
+  Tswana_Search.firestore = Firestore.instance;
   runApp(MyApp());
 
 }
@@ -32,14 +32,14 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (_) => TotalAmount()),
         ],
         child: MaterialApp(
-            title: 'STOCKiT APP',
+            title: 'SEARCH_TSWANA APP',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               primaryColor: Colors.blueGrey,
             ),
             home:
             //SellBook()
-          SplashScreen()
+            SplashScreen()
         ));
   }
 }
@@ -58,7 +58,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   startTimer() {
     Timer(Duration(seconds: 2), () async {
-      if (await AbsaCompetitionApp.auth.currentUser() != null) {
+      if (await Tswana_Search.auth.currentUser() != null) {
         Route newRoute = MaterialPageRoute(builder: (_) => CleintStoreHome());
         Navigator.pushReplacement(context, newRoute);
       } else {
@@ -78,13 +78,13 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image.asset('images/welcomess.jpg'),
-              Text('WELCOME TO StockIt APP',
-                 style: TextStyle(
-              //  fontSize: ScreenUtil.getInstance().setSp(45),
-                fontFamily: 'Poppins-Bold',
-                letterSpacing: .6,
-                color: Colors.brown.withOpacity(0.7),),)
+              Image.asset('images/images.png'),
+              Text('WELCOME TO SEARCH_TSWANA APP',
+                style: TextStyle(
+                  //  fontSize: ScreenUtil.getInstance().setSp(45),
+                  fontFamily: 'Poppins-Bold',
+                  letterSpacing: .6,
+                  color: Colors.blue.withOpacity(0.7),),)
             ],
           ),
         ),

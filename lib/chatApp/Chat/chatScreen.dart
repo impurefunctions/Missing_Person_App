@@ -78,7 +78,7 @@ class ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
         print('inactive');
         break;
       case AppLifecycleState.paused:
-        AbsaCompetitionApp.firestore
+        Tswana_Search.firestore
             .collection(ChatApp.collectionUser)
             .document(userID)
             .updateData({ChatApp.userChattingWith: null});
@@ -99,7 +99,7 @@ class ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
     } else {
       groupChatId = '$adminId-$userID';
     }
-    AbsaCompetitionApp.firestore
+    Tswana_Search.firestore
         .collection(ChatApp.collectionUser)
         .document(userID)
         .updateData({ChatApp.userChattingWith: adminId});
@@ -196,7 +196,7 @@ class ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
 
   Future<bool> onBackPress() {
     print('Backing...');
-    AbsaCompetitionApp.firestore
+    Tswana_Search.firestore
         .collection(ChatApp.collectionUser)
         .document(userID)
         .updateData({ChatApp.userChattingWith: null});
@@ -315,7 +315,7 @@ class ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
 //                    )
                       ),
                   child: StreamBuilder<DocumentSnapshot>(
-                      stream: AbsaCompetitionApp.firestore
+                      stream: Tswana_Search.firestore
                           .collection(ChatApp.collectionMessage)
                           .document(groupChatId)
                           .collection(adminId)
@@ -467,7 +467,7 @@ class ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
               child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(themeColor)))
           : StreamBuilder(
-              stream: AbsaCompetitionApp.firestore
+              stream: Tswana_Search.firestore
                   .collection(ChatApp.collectionMessage)
                   .document(groupChatId)
                   .collection(groupChatId)
@@ -602,11 +602,11 @@ class ChatScreenState extends State<ChatScreen> with WidgetsBindingObserver {
   }
 
   void initialisingData() async{
-    AbsaCompetitionApp.firestore
+    Tswana_Search.firestore
         .collection(ChatApp.collectionMessage)
         .document(groupChatId)
-        .collection(AbsaCompetitionApp.sharedPreferences.getString(AbsaCompetitionApp.userUID),)
-        .document(AbsaCompetitionApp.sharedPreferences.getString(AbsaCompetitionApp.userUID))
+        .collection(Tswana_Search.sharedPreferences.getString(Tswana_Search.userUID),)
+        .document(Tswana_Search.sharedPreferences.getString(Tswana_Search.userUID))
         .setData({UserMessage.count: 0}).catchError((error) {
       print('Hello');
       print(error);

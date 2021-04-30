@@ -1,6 +1,8 @@
+
+import 'package:ecommerce/Authentication/login.dart';
+import 'package:ecommerce/Authentication/register.dart';
 import 'package:flutter/material.dart';
-import 'login.dart';
-import 'register.dart';
+
 import 'package:ecommerce/Config/config.dart';
 
 
@@ -23,8 +25,8 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
       child: Scaffold(
         backgroundColor: Color.fromRGBO(237, 237, 237, 1.0),
         appBar: AppBar(
-          backgroundColor: Colors.blueGrey,
-          title: Text(AbsaCompetitionApp.appName),
+          backgroundColor: Colors.blueAccent,
+          title: Text(Tswana_Search.appName),
           bottom: TabBar(
             tabs: [
               Tab(
@@ -36,7 +38,7 @@ class _AuthenticScreenState extends State<AuthenticScreen> {
                 text: 'Register',
               ),
             ],
-            indicatorColor: Colors.pink,
+            indicatorColor: Colors.black26,
             indicatorWeight: 5.0,
           ),
         ),

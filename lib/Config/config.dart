@@ -3,9 +3,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AbsaCompetitionApp{
+class Tswana_Search{
   // App Information
-   static const String appName = 'STOCKiT APP';
+   static const String appName = 'SEARCH_TSWANA';
 
 
    //https://github.com/flutter/flutter/issues/16602
@@ -36,7 +36,7 @@ class AbsaCompetitionApp{
    // User Detail
    static final String userName = 'name';
    static final String userEmail = 'email';
-   //static final String userPhotoUrl = 'photoUrl';
+   static final String role = 'role';
    static final String userUID = 'uid';
    static final String userAvatarUrl = 'url';
    static final String userJoinedTeams = 'joinedTeams';

@@ -30,8 +30,8 @@ class MyDrawer extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text(AbsaCompetitionApp.sharedPreferences
-                      .getString(AbsaCompetitionApp.userName)),
+                  Text(Tswana_Search.sharedPreferences
+                      .getString(Tswana_Search.userName)),
                   Expanded(child: Container()),
                   IconButton(
                     icon: Icon(
@@ -43,14 +43,14 @@ class MyDrawer extends StatelessWidget {
                 ],
               ),
             ),
-            accountEmail: Text(AbsaCompetitionApp.sharedPreferences
-                .getString(AbsaCompetitionApp.userEmail)),
+            accountEmail: Text(Tswana_Search.sharedPreferences
+                .getString(Tswana_Search.userEmail)),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
                   ? Colors.blue
                   : Colors.white,
-              backgroundImage: NetworkImage(AbsaCompetitionApp.sharedPreferences
-                  .getString(AbsaCompetitionApp.userAvatarUrl)),
+              backgroundImage: NetworkImage(Tswana_Search.sharedPreferences
+                  .getString(Tswana_Search.userAvatarUrl)),
               child: Padding(
                   padding: EdgeInsets.only(left: 40, top: 45),
                   child: IconButton(
@@ -73,7 +73,7 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.track_changes),
-            title: Text('My Products'),
+            title: Text('Missing Person'),
             onTap: () {
               Route newRoute =
               MaterialPageRoute(builder: (_) => MyProducts());
@@ -82,7 +82,7 @@ class MyDrawer extends StatelessWidget {
           ),
           ListTile(
             leading: Icon(Icons.add),
-            title: Text('Add Item'),
+            title: Text('Add Picture'),
             onTap: () {
               Navigator.pop(context);
               Route newRoute = MaterialPageRoute(builder: (_) => SellProduct());
@@ -99,6 +99,17 @@ class MyDrawer extends StatelessWidget {
               Navigator.push(context, newRoute);
             },
           ),
+         //to do,,, allow to conduct relevant authorities
+         /* ListTile(
+            leading: Icon(Icons.message),
+            title: Text('Conduct Authorities'),
+            onTap: () {
+              Navigator.pop(context);
+              Route newRoute = MaterialPageRoute(builder: (_) => Contact());
+              Navigator.push(context, newRoute);
+            },
+          ),*/
+
 
 
           ListTile(
@@ -126,7 +137,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Logout'),
             onTap: () {
               print('bh');
-              AbsaCompetitionApp.auth.signOut().then((_) {
+              Tswana_Search.auth.signOut().then((_) {
                 Route newRoute =
                     MaterialPageRoute(builder: (_) => AuthenticScreen());
                 Navigator.pushReplacement(context, newRoute);
@@ -159,15 +170,15 @@ class MyDrawer extends StatelessWidget {
               RaisedButton(
                 onPressed: () {
                   Fluttertoast.showToast(msg: 'Updating');
-                  AbsaCompetitionApp.firestore
-                      .collection(AbsaCompetitionApp.collectionUser)
-                      .document(AbsaCompetitionApp.sharedPreferences
-                          .getString(AbsaCompetitionApp.userUID))
+                  Tswana_Search.firestore
+                      .collection(Tswana_Search.collectionUser)
+                      .document(Tswana_Search.sharedPreferences
+                          .getString(Tswana_Search.userUID))
                       .updateData({
-                    AbsaCompetitionApp.userName: _nameController.text,
+                    Tswana_Search.userName: _nameController.text,
                   }).then((_){
-                    AbsaCompetitionApp.sharedPreferences
-                        .setString(AbsaCompetitionApp.userName, _nameController.text);
+                    Tswana_Search.sharedPreferences
+                        .setString(Tswana_Search.userName, _nameController.text);
                     Fluttertoast.showToast(msg: 'Updated');
                     Navigator.pop(context);
                   }).catchError((_){
@@ -232,15 +243,15 @@ class MyDrawer extends StatelessWidget {
   }
   updateImageUrl(BuildContext context){
     Fluttertoast.showToast(msg: 'Updating');
-    AbsaCompetitionApp.firestore
-        .collection(AbsaCompetitionApp.collectionUser)
-        .document(AbsaCompetitionApp.sharedPreferences
-        .getString(AbsaCompetitionApp.userUID))
+    Tswana_Search.firestore
+        .collection(Tswana_Search.collectionUser)
+        .document(Tswana_Search.sharedPreferences
+        .getString(Tswana_Search.userUID))
         .updateData({
-      AbsaCompetitionApp.userAvatarUrl: userPhotoUrl,
+      Tswana_Search.userAvatarUrl: userPhotoUrl,
     }).then((_){
-      AbsaCompetitionApp.sharedPreferences
-          .setString(AbsaCompetitionApp.userAvatarUrl, userPhotoUrl);
+      Tswana_Search.sharedPreferences
+          .setString(Tswana_Search.userAvatarUrl, userPhotoUrl);
       Navigator.pop(context);
       Navigator.pop(context);
       Fluttertoast.showToast(msg: 'Updated');

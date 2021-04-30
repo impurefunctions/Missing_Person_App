@@ -18,6 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:ecommerce/Config/config.dart';
 import '../Widgets/customAppBar.dart';
@@ -62,10 +63,10 @@ class _CleintStoreHomeState extends State<CleintStoreHome> {
 
     firebaseMessaging.getToken().then((token) {
       print('token: $token');
-      AbsaCompetitionApp.firestore
+      Tswana_Search.firestore
           .collection(ChatApp.collectionUser)
           .document(
-              AbsaCompetitionApp.sharedPreferences.getString(AbsaCompetitionApp.userUID))
+          Tswana_Search.sharedPreferences.getString(Tswana_Search.userUID))
           .updateData({ChatApp.userToken: token});
     }).catchError((err) {
       Fluttertoast.showToast(msg: err.message.toString());
@@ -214,7 +215,7 @@ Widget sourceInfo(ProductModel model, BuildContext context,
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Expanded(
-                        child: Text(model.title,
+                        child: Text(model.name,
                             style: TextStyle(
                                 color: LightColor.purple,
                                 fontSize: 16,
@@ -247,21 +248,54 @@ Widget sourceInfo(ProductModel model, BuildContext context,
                             // mainAxisSize: MainAxisSize.min,
                             //mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
-                              Text("Price: ",
+                              Text("Name: ",
                                   style: AppTheme.h6Style.copyWith(
                                     fontSize: 14,
                                     color: LightColor.grey,
                                   )),
-                              Text(
-                                "P",
-                                style: TextStyle(
-                                    color: Colors.red, fontSize: 14.0),
-                              ),
-                              Text(model.price,
+                              Text(model.name,
                                   style: AppTheme.h6Style.copyWith(
                                     fontSize: 14,
                                     color: Colors.red,
                                   )),
+
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+
+
+
+                Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 0.0,
+                          ),
+                          child: Row(
+                            // mainAxisSize: MainAxisSize.min,
+                            //mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Text("Last_Seen: ",
+                                  style: AppTheme.h6Style.copyWith(
+                                    fontSize: 14,
+                                    color: LightColor.grey,
+                                  )),
+                              if(model.last_seen != null)Text(DateFormat.yMMMd().format(model.last_seen),
+                                  style: AppTheme.h6Style.copyWith(
+                                    fontSize: 14,
+                                    color: Colors.red,
+                                  )),
+
                             ],
                           ),
                         ),
@@ -278,7 +312,7 @@ Widget sourceInfo(ProductModel model, BuildContext context,
                       ? Container()
                       : IconButton(
                           icon: Icon(
-                            Icons.delete_forever,
+                            Icons.edit,
                             color: LightColor.purple,
                           ),
                           onPressed: () {
@@ -339,9 +373,9 @@ void checkItemInCart(String productID, BuildContext context) {
   print(productID);
 
   ///print(cartItems);
-  AbsaCompetitionApp.sharedPreferences
+  Tswana_Search.sharedPreferences
           .getStringList(
-            AbsaCompetitionApp.userFriendList,
+    Tswana_Search.userFriendList,
           )
           .contains(productID)
       ? Fluttertoast.showToast(msg: 'Product is already in cat')
@@ -349,17 +383,17 @@ void checkItemInCart(String productID, BuildContext context) {
 }
 
 void addToCart(String productID, BuildContext context) {
-  List temp = AbsaCompetitionApp.sharedPreferences.getStringList(
-    AbsaCompetitionApp.userFriendList,
+  List temp = Tswana_Search.sharedPreferences.getStringList(
+    Tswana_Search.userFriendList,
   );
   temp.add(productID);
-  AbsaCompetitionApp.firestore
-      .collection(AbsaCompetitionApp.collectionUser)
-      .document(AbsaCompetitionApp.sharedPreferences.getString(AbsaCompetitionApp.userUID))
-      .updateData({AbsaCompetitionApp.userFriendList: temp}).then((_) {
-    Fluttertoast.showToast(msg: 'Item Added Succesfully');
-    AbsaCompetitionApp.sharedPreferences
-        .setStringList(AbsaCompetitionApp.userFriendList, temp);
+  Tswana_Search.firestore
+      .collection(Tswana_Search.collectionUser)
+      .document(Tswana_Search.sharedPreferences.getString(Tswana_Search.userUID))
+      .updateData({Tswana_Search.userFriendList: temp}).then((_) {
+    Fluttertoast.showToast(msg: 'Added Succesfully');
+    Tswana_Search.sharedPreferences
+        .setStringList(Tswana_Search.userFriendList, temp);
     Provider.of<CartItemCounter>(context, listen: false).displayResult();
   });
 }

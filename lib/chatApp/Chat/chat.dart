@@ -25,7 +25,7 @@ class Chat extends StatelessWidget {
             },
           ),
           automaticallyImplyLeading: false,
-          title: Text('Customer Support'),
+          title: Text('Chats'),
           centerTitle: false,
 //          leading: Container(
 //            height: 0,

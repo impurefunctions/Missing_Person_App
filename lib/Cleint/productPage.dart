@@ -57,7 +57,7 @@ class _ProductPageState extends State<ProductPage> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(top: 18.0, left: 18.0),
-                  child: Text(widget.productModel.title,
+                  child: Text(widget.productModel.name,
                       style: TextStyle(
                           color: Colors.blue,
                           fontSize: 20.0,
@@ -84,23 +84,26 @@ class _ProductPageState extends State<ProductPage> {
                       animationDuration:
                       Duration(milliseconds: 2000)),
                 ),
+
+
+
                 Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: Text(
-                    "Description",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 15.0),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 10.0),
-                  child: Text(
-                    widget.productModel.description,
-                    //"There are several things to consider in order to help your book achieve its greatest potential discoverability. Readers, librarians, and retailers can't purchase a book they can't find, and your book metadata is responsible for whether or not your book pops up when they type in search terms relevant to your book. Book metadata may sound complicated, but it consists of all the information that describes your book, including: your title, subtitle, series name, price, trim size, author name, book description, and more. There are two metadata fields for your book description: the long book description and the short book description. Although both play a role in driving traffic to your book, they have distinct differences.",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.italic,
-                        color: Colors.blueGrey),
+                  padding: const EdgeInsets.only(top: 10.0, left: 15.0),
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        "DESCRIPTION: ",
+                        style: TextStyle(),
+                      ),
+
+                      Text(
+                        widget.productModel.description.toString(),
+                        style: TextStyle(
+                            color: Colors.blueGrey,
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ],
                   ),
                 ),
 
@@ -109,44 +112,24 @@ class _ProductPageState extends State<ProductPage> {
                   child: Row(
                     children: <Widget>[
                       Text(
-                        "Price: ",
+                        "AGE: ",
                         style: TextStyle(),
                       ),
+
                       Text(
-                        "P",
-                        style: TextStyle(color: Colors.red, fontSize: 20.0),
-                      ),
-                      Text(
-                        widget.productModel.price.toString(),
+                        widget.productModel.age.toString(),
                         style: TextStyle(
-                            color: Colors.red,
+                            color: Colors.blueGrey,
                             fontSize: 20.0,
                             fontWeight: FontWeight.w400),
                       ),
                     ],
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0, left: 20.0),
-                  child: Row(
-                    children: <Widget>[
-                      Text(
-                        "Location: ",
-                        style: TextStyle(),
-                      ),
-                      Text(
-                        widget.productModel.location,
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.w400),
-                      ),
-                    ],
-                  ),
-                ),
+
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text('Details of owner'),
+                  child: Text('DETAILS OF POSTEE'),
                 ),
                 FutureBuilder<DocumentSnapshot>(
                     future: Firestore.instance.collection(
@@ -170,49 +153,49 @@ class OwnerCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-      snapshot.data[AbsaCompetitionApp.userUID]==AbsaCompetitionApp.sharedPreferences
-          .getString(AbsaCompetitionApp.userUID)?Container(
-        child: Text('This item is owned by you'),
+      snapshot.data[Tswana_Search.userUID]==Tswana_Search.sharedPreferences
+          .getString(Tswana_Search.userUID)?Container(
+        child: Text('This post was reported by you'),
       ):
       Container(
         child: UserAccountsDrawerHeader(
-          decoration: BoxDecoration(color: Colors.deepPurple),
+          decoration: BoxDecoration(color: Colors.blue),
           accountName:
-          Text(snapshot.data[AbsaCompetitionApp.userName]),
+          Text(snapshot.data[Tswana_Search.userName]),
           accountEmail: Row(
             children: <Widget>[
-              Text(snapshot.data[AbsaCompetitionApp.userEmail]),
+              Text(snapshot.data[Tswana_Search.userEmail]),
               SizedBox(
                 width: 20,
               ),
               InkWell(
                 onTap: (){
-                  List friendList = AbsaCompetitionApp.sharedPreferences
-                      .getStringList(AbsaCompetitionApp.userFriendList);
+                  List friendList = Tswana_Search.sharedPreferences
+                      .getStringList(Tswana_Search.userFriendList);
                   if(!friendList.contains(snapshot.data[ChatApp.userUID])){
                     friendList.add(snapshot.data[ChatApp.userUID]);
 
-                    AbsaCompetitionApp.firestore
-                        .collection(AbsaCompetitionApp.collectionUser)
-                        .document(AbsaCompetitionApp.sharedPreferences.getString(ChatApp.userUID)).collection(
-                        AbsaCompetitionApp.userFriendList).document(snapshot.data[ChatApp.userUID]).setData({
+                    Tswana_Search.firestore
+                        .collection(Tswana_Search.collectionUser)
+                        .document(Tswana_Search.sharedPreferences.getString(ChatApp.userUID)).collection(
+                        Tswana_Search.userFriendList).document(snapshot.data[ChatApp.userUID]).setData({
                       'name': snapshot.data[ChatApp.userName],
-                      'url' :snapshot.data[AbsaCompetitionApp.userAvatarUrl]
+                      'url' :snapshot.data[Tswana_Search.userAvatarUrl]
                     });
-                    AbsaCompetitionApp.firestore
-                        .collection(AbsaCompetitionApp.collectionUser)
+                    Tswana_Search.firestore
+                        .collection(Tswana_Search.collectionUser)
                         .document(snapshot.data[ChatApp.userUID]).collection(
-                        AbsaCompetitionApp.userFriendList).document(AbsaCompetitionApp.sharedPreferences.getString(ChatApp.userUID)).setData({
-                      'name': AbsaCompetitionApp.sharedPreferences.getString(ChatApp.userName),
-                      'url': AbsaCompetitionApp.sharedPreferences.getString(AbsaCompetitionApp.userAvatarUrl),
+                        Tswana_Search.userFriendList).document(Tswana_Search.sharedPreferences.getString(ChatApp.userUID)).setData({
+                      'name': Tswana_Search.sharedPreferences.getString(ChatApp.userName),
+                      'url': Tswana_Search.sharedPreferences.getString(Tswana_Search.userAvatarUrl),
                     });
-                    AbsaCompetitionApp.sharedPreferences.setStringList(AbsaCompetitionApp.userFriendList, friendList);
+                    Tswana_Search.sharedPreferences.setStringList(Tswana_Search.userFriendList, friendList);
                   }
                   Route route = MaterialPageRoute(
                       builder: (builder) => Chat(
                         // TODO Change peerID with admin ID
                         peerId: snapshot.data[ChatApp.userUID],
-                        userID: AbsaCompetitionApp.sharedPreferences.getString(ChatApp.userUID),
+                        userID: Tswana_Search.sharedPreferences.getString(ChatApp.userUID),
                       ));
                   Navigator.push(context, route);
                 },
@@ -229,7 +212,7 @@ class OwnerCard extends StatelessWidget {
             backgroundColor: Theme.of(context).platform == TargetPlatform.iOS
                 ? Colors.blue
                 : Colors.white,
-            backgroundImage: NetworkImage(snapshot.data[AbsaCompetitionApp.userAvatarUrl]),
+            backgroundImage: NetworkImage(snapshot.data[Tswana_Search.userAvatarUrl]),
           ),
         ),
       );

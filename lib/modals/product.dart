@@ -1,34 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ProductModel {
-  String title;
+  String name;
   String contacts;
-  int type_of_Livestock;
+
   PublishedDate publishedDate;
   String thumbnailUrl;
   String longDescription;
   String status;
-  String location;
-  String price;
+  DateTime last_seen;
+  String found;
+  String age;
   List<dynamic> authors;
   List<String> categories;
 
   ProductModel(
-      {this.title,
+      {this.name,
         this. contacts,
-        this.type_of_Livestock,
+
         this.publishedDate,
         this.thumbnailUrl,
-        this.location,
+        this.last_seen,
         this.status,
-        this.price,
+        this.age,
+        this.found,
         this.authors,
         this.categories});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
-    title = json['title'];
+    name = json['name'];
     contacts = json['contacts'];
-    price = json['price'];
-    location = json['location'];
-    type_of_Livestock = json['type_of_Livestock'];
+    age = json['age'];
+    final Timestamp timestamp = json['last_seen'] as Timestamp;
+    last_seen = timestamp.toDate();
+
+    found = json['found'];
+
     publishedDate = json['publishedDate'] != null
         ? new PublishedDate.fromJson(json['publishedDate'])
         : null;
@@ -37,14 +44,15 @@ class ProductModel {
     status = json['status'];
     authors = json['authors'].cast<String>();
     categories = json['categories'].cast<String>();
-    location = json['location'];
+    last_seen = json['last_seen'];
+    found = json['found'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['title'] = this.title;
+    data['name'] = this.name;
     data['contacts'] = this.contacts;
-    data['location'] = this.location;
+    data['last_seen'] = this.last_seen;
     //data['pageCount'] = this.pageCount;
     if (this.publishedDate != null) {
       data['publishedDate'] = this.publishedDate.toJson();
